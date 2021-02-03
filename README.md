@@ -8,6 +8,7 @@
 ## ERC20-Redeem
 
 This project implements a smart contract that distributes token rewards to participants throughout a week-long interval.
+
 Admins add token allocations for each user to the contract, which then become claimable in the form of ERC20 tokens across the week, ensuring that a large distribution doesn't upset the market.
 
 ## Context
