@@ -117,7 +117,7 @@ contract("MerkleRedeem", accounts => {
     const claimBalance = utils.toWei("1000");
     const elements = [utils.soliditySha3(accounts[1], claimBalance)];
     const merkleTree = new MerkleTree(elements);
-    //const root = merkleTree.getHexRoot();
+    const root = merkleTree.getHexRoot();
 
     beforeEach(async () => {
       const lastBlock = await web3.eth.getBlock("latest");
@@ -193,21 +193,15 @@ contract("MerkleRedeem", accounts => {
       await increaseTime(6);
       let claimedBalance = utils.toWei("1000");
       const merkleProof = merkleTree.getHexProof(elements[0]);
-      // await redeem.claimWeeks(accounts[1],
-      //   [[1, claimedBalance, merkleProof], [1, claimedBalance, merkleProof]], {
-      //   from: accounts[1]
-      // });
-      // await increaseTime(4);
+
+      await redeem.claimWeek(accounts[1], 1, claimedBalance, merkleProof, {
+        from: accounts[1]
+      });
+
       await truffleAssert.reverts(
-        // redeem.claimWeek(accounts[1], 1, claimedBalance, merkleProof, {
-        //   from: accounts[1]
-        redeem.claimWeeks(
-          accounts[1],
-          [[1, claimedBalance, merkleProof], [1, claimedBalance, merkleProof]],
-          {
-            from: accounts[1]
-          }
-        )
+        redeem.claimWeek(accounts[1], 1, claimedBalance, merkleProof, {
+          from: accounts[1]
+        })
       );
     });
   });
@@ -244,11 +238,15 @@ contract("MerkleRedeem", accounts => {
       const proof1 = merkleTree1.getHexProof(elements1[0]);
       const proof2 = merkleTree2.getHexProof(elements2[0]);
 
-      await redeem.claimWeeks(
-        accounts[1],
-        [[2, claimedBalance2, proof2], [1, claimedBalance1, proof1]],
-        { from: accounts[1] }
-      );
+      await redeem.claimWeek(accounts[1], 1, claimedBalance1, proof1, {
+        from: accounts[1]
+      });
+
+      await increaseTime(8);
+
+      await redeem.claimWeek(accounts[1], 2, claimedBalance2, proof2, {
+        from: accounts[1]
+      });
 
       let result = await tbal.balanceOf(accounts[1]);
       assert(
