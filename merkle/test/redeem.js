@@ -171,19 +171,20 @@ contract("MerkleRedeem", accounts => {
       const merkleProof = merkleTree.getHexProof(elements[0]);
 
       await truffleAssert.reverts(
-        redeem.claimWeek(accounts[2], 1, claimedBalance, merkleProof, {
-          from: accounts[2]
+        redeem.claimWeek(accounts[1], 0, claimedBalance, merkleProof, {
+          from: accounts[0]
         })
       );
     });
 
     it("Reverts when the user attempts to claim the wrong balance", async () => {
-      await increaseTime(0);
+      await increaseTime(6);
       let claimedBalance = utils.toWei("666");
       const merkleProof = merkleTree.getHexProof(elements[0]);
+
       await truffleAssert.reverts(
-        redeem.claimWeek(accounts[1], 1, claimedBalance, merkleProof, {
-          from: accounts[1]
+        redeem.claimWeek(accounts[0], 1, claimedBalance, merkleProof, {
+          from: accounts[0]
         })
       );
     });
@@ -192,15 +193,21 @@ contract("MerkleRedeem", accounts => {
       await increaseTime(6);
       let claimedBalance = utils.toWei("1000");
       const merkleProof = merkleTree.getHexProof(elements[0]);
-
-      await redeem.claimWeek(accounts[1], 1, claimedBalance, merkleProof, {
-        from: accounts[1]
-      });
-
+      // await redeem.claimWeeks(accounts[1],
+      //   [[1, claimedBalance, merkleProof], [1, claimedBalance, merkleProof]], {
+      //   from: accounts[1]
+      // });
+      // await increaseTime(4);
       await truffleAssert.reverts(
-        redeem.claimWeek(accounts[1], 1, claimedBalance, merkleProof, {
-          from: accounts[1]
-        })
+        // redeem.claimWeek(accounts[1], 1, claimedBalance, merkleProof, {
+        //   from: accounts[1]
+        redeem.claimWeeks(
+          accounts[1],
+          [[1, claimedBalance, merkleProof], [1, claimedBalance, merkleProof]],
+          {
+            from: accounts[1]
+          }
+        )
       );
     });
   });
@@ -235,14 +242,13 @@ contract("MerkleRedeem", accounts => {
       let claimedBalance2 = utils.toWei("1234");
 
       const proof1 = merkleTree1.getHexProof(elements1[0]);
-      await redeem.claimWeek(accounts[1], 1, claimedBalance1, proof1, {
-        from: accounts[1]
-      });
-
       const proof2 = merkleTree2.getHexProof(elements2[0]);
-      await redeem.claimWeek(accounts[1], 2, claimedBalance2, proof2, {
-        from: accounts[1]
-      });
+
+      await redeem.claimWeeks(
+        accounts[1],
+        [[2, claimedBalance2, proof2], [1, claimedBalance1, proof1]],
+        { from: accounts[1] }
+      );
 
       let result = await tbal.balanceOf(accounts[1]);
       assert(
@@ -251,11 +257,13 @@ contract("MerkleRedeem", accounts => {
       );
     });
 
+    // Passing above implies below
     it("Allows the user to claim multiple weeks at once", async () => {
       await increaseTime(8);
 
       let claimedBalance1 = utils.toWei("1000");
       let claimedBalance2 = utils.toWei("1234");
+      let expectedResult = claimedBalance1 + claimedBalance2;
 
       const proof1 = merkleTree1.getHexProof(elements1[0]);
       const proof2 = merkleTree2.getHexProof(elements2[0]);
@@ -267,8 +275,9 @@ contract("MerkleRedeem", accounts => {
       );
 
       let result = await tbal.balanceOf(accounts[1]);
+
       assert(
-        result == utils.toWei("2234"),
+        (result = expectedResult),
         "user should receive all tokens, including current week"
       );
     });

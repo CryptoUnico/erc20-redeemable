@@ -1,7 +1,8 @@
 # Merkle Commands
 
 - Install packages [npm install]
-- truffle compile-contracts
-- truffle test
-- truffle deploy-contracts
+- truffle testx
+- truffle compile
+- truffle migrate
+- truffle deploy
 - deploy-contracts-from-docker
