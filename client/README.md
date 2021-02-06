@@ -30,3 +30,5 @@ npm run start
 ## License
 
 [GPL-3.0](LICENSE).
+
+Checkout deployment instructions [here](https://cli.vuejs.org/guide/deployment.html#general-guidelines).
