@@ -1,7 +1,7 @@
 <template>
   <UiModal :open="open" @close="$emit('close')">
     <div v-if="!web3.account || step === 'connect'">
-      <h3 class="m-4 mb-0 text-center">Connect wallet</h3>
+      <h3 class="m-4 mb-0 text-center">Connect Wallet</h3>
       <div class="m-4 mb-5">
         <a
           v-for="(connector, id, i) in config.connectors"
@@ -41,13 +41,13 @@
           @click="step = 'connect'"
           class="button-outline width-full mb-2"
         >
-          Connect wallet
+          Connect Wallet
         </UiButton>
         <UiButton
           @click="handleLogout"
           class="button-outline width-full text-red mb-2"
         >
-          Log out
+          Log Out
         </UiButton>
       </div>
     </div>

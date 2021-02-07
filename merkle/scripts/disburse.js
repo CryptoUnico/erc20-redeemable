@@ -1,5 +1,6 @@
 // Usage example:
-// npm run disburse -- /home/greg/erc20-redeemable/merkle/test/10_totals.json 10622281
+// npm run disburse
+// -- /home/greg/erc20-redeemable/merkle/test/10_totals.json 10622281
 
 const { MerkleTree } = require("../lib/merkleTree");
 const { utils } = web3;

@@ -1,11 +1,11 @@
-const { MerkleTree } = require("../lib/merkleTree");
+const { MerkleTree } = require("./merkleTree");
 const fs = require("fs");
 
 const loadTree = (utils, fileName) => {
   const rawdata = fs.readFileSync(fileName);
   const balances = JSON.parse(rawdata);
 
-  let elements = [];
+  const elements = [];
   let balance;
   let leaf;
 

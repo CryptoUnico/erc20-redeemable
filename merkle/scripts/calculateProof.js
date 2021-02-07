@@ -1,5 +1,7 @@
 // Usage example:
-// npm run calculateProof -- /home/greg/erc20-redeemable/merkle/test/10_totals.json  0x77c845E6A61F37cB7B237de90a74fbc3679FcF06
+// npm run calculateProof
+// -- /home/greg/erc20-redeemable/merkle/test/10_totals.json
+// 0x77c845E6A61F37cB7B237de90a74fbc3679FcF06
 
 const { MerkleTree } = require("../lib/merkleTree");
 const { utils } = web3;

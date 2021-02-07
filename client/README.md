@@ -32,3 +32,7 @@ npm run start
 [GPL-3.0](LICENSE).
 
 Checkout deployment instructions [here](https://cli.vuejs.org/guide/deployment.html#general-guidelines).
+
+## Project setup | VueJS
+```
+npm install -g serve
