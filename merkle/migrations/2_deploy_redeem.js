@@ -1,5 +1,5 @@
 const TToken = artifacts.require("./TToken.sol");
-const Redeem = artifacts.require("./MerkleRedeem.sol");
+const Redeem = artifacts.require("./RobotRedeem.sol");
 const { utils } = web3;
 
 module.exports = (deployer, network, accounts) => {

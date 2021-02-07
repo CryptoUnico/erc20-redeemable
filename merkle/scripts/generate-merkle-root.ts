@@ -1,6 +1,6 @@
 import { program } from 'commander'
 import fs from 'fs'
-import { parseBalanceMap } from '../src/parse-balance-map'
+import { parseBalanceMap } from './parse-balance-map'
 
 program
   .version('0.0.0')
