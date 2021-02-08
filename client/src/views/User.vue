@@ -35,7 +35,7 @@
                 <div class="flex-auto">
                   <a
                     :href="
-                      `https://github.com/cryptounico/bal-mining-scripts/blob/master/reports/${_week(
+                      `https://github.com/cryptounico/robot-mining-scripts/blob/master/reports/${_week(
                         week
                       )}/_totals.json`
                     "
@@ -70,7 +70,7 @@
                 <div class="flex-auto">
                   <a
                     :href="
-                      `https://github.com/balancer-labs/bal-mining-scripts/blob/master/reports/${_week(
+                      `https://github.com/cryptounico/robot-mining-scripts/blob/master/reports/${_week(
                         week
                       )}/_totals.json`
                     "
