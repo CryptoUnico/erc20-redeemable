@@ -79,7 +79,7 @@ export async function getSnapshot() {
   const networkStr = config.chainId === 1 ? '' : '-kovan';
   return (
     (await ipfs.get(
-      `cryptounico-team-bucket.storage.fleek.co/robot-claims${networkStr}/claims`,
+      `cryptounico-team-bucket.storage.fleek.co/robot-claims${networkStr}/reports`,
       'ipns'
     )) || {}
   );
