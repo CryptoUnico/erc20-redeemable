@@ -91,7 +91,7 @@ const actions = {
       console.log('Claim payload', claims);
       const tx = await dispatch('sendTransaction', params);
       const amountStr = numeral(totalClaim).format('(0.[00]a)');
-      dispatch('notify', ['green', `You've just claimed ${amountStr} BAL!`]);
+      dispatch('notify', ['green', `You've just claimed ${amountStr} ROBOT!`]);
       commit('CLAIM_WEEKS_SUCCESS');
       return tx;
     } catch (e) {
